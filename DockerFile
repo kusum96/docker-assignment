@@ -1,0 +1,13 @@
+# Use a base image
+FROM alpine:latest
+
+# Copy Welcome.txt to the container
+COPY Welcome.txt /app/Welcome.txt
+
+# Set working directory
+WORKDIR /app
+
+# Print the content of Welcome.txt
+CMD cat Welcome.txt
+
+
