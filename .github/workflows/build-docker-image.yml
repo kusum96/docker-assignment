@@ -19,7 +19,7 @@ jobs:
       run: echo "${{ secrets.DOCKERHUB_Saif_Token }}" | docker login --username "${{ secrets.DOCKERHUB_Saif_USERNAME }}" --password-stdin
 
     - name: Build Docker Image
-      run: docker build -f /root/Kusum/Master-assignments/docker-assignment-2/DockerFile -t yourusername/yourimagename:latest
+      run: docker build . -t kusum/docker-ass1:latest -f /root/Kusum/Master-assignments/docker-assignment-2/DockerFile
 
     - name: Push Docker Image
-      run: docker push yourusername/yourimagename:latest
+      run: docker push kusum/docker-ass1:latest
