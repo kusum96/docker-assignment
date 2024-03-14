@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - feature/docker-file
+  workflow_dispatch:
 
 jobs:
   build-and-push:
