@@ -8,9 +8,6 @@ jobs:
     name: Build and Push
     runs-on: ubuntu-latest
 
-    outputs:
-      image_tag: ${{ steps.build.outputs.image_tag }}
-
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
@@ -20,12 +17,7 @@ jobs:
 
     - name: Build Docker Image
       run: docker build . -t kusumchoudhary/docker-ass1:v3.0.0 -f DockerFile
-        echo "v3.0.0" >> $GITHUB_ENV
         
     - name: Push Docker Image
       run: docker push kusumchoudhary/docker-ass1:v3.0.0
-
-    - name: Set Image Tag Output
-      if: always()
-      run: echo "image_tag=v3.0.0" >> $GITHUB_ENV
 
