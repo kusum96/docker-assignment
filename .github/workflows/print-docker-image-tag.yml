@@ -17,9 +17,12 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: image_tag
+          repository: ${{ github.repository }}
+          ref: ${{ github.ref }}
           workflow: "Build and Push Docker Image"
-          run-id: ${{ github.event.workflow_run.id }} # Use the workflow run ID of the "Build and Push Docker Image" workflow
           path: .  # Download the artifact to the current directory
 
       - name: Read Image Tag from File
         run: cat image_tag.txt
+
+      # Add any other steps as needed
