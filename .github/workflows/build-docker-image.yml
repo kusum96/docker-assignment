@@ -2,6 +2,8 @@ name: Build and Push Docker Image
 
 on:
   push:
+    branches:
+      - feature/docker-file
   workflow_dispatch:
 
 jobs:
@@ -17,11 +19,9 @@ jobs:
       run: echo "${{ secrets.DOCKERHUB_Saif_Token }}" | docker login --username "${{ secrets.DOCKERHUB_Saif_USERNAME }}" --password-stdin
 
     - name: Build Docker Image
-      run: docker build . -t kusumchoudhary/docker-ass1:v2.0.0 -f DockerFile
+      run: |
+        docker build . -t kusumchoudhary/docker-ass1:v3.0.0 -f DockerFile
+        echo "TAG=v3.0.0" >> $GITHUB_ENV
 
     - name: Push Docker Image
-      run: docker push kusumchoudhary/docker-ass1:v2.0.0
-
-    - name: Set Image Tag Output
-      id: set-tag
-      run: echo "::set-output name=tag::${{ steps.build-and-push.outputs.image_tag }}"
+      run: docker push kusumchoudhary/docker-ass1:v3.0.0
