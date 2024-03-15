@@ -8,9 +8,6 @@ jobs:
     name: Build and Push
     runs-on: ubuntu-latest
 
-    outputs: 
-      image_tag: ${{ steps.set_imagetag.outputs.image_tag }}
-
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
@@ -25,9 +22,7 @@ jobs:
       run: docker push kusumchoudhary/docker-ass1:v3.0.0
 
     - name: Set Image Tag
-      id: set_imagetag
-      run: |
-       echo "IMAGE_TAG=v3.0.0" >> $GITHUB_ENV
+      run: echo "IMAGE_TAG=v3.0.0" >> $GITHUB_ENV
 
     - name: Print Image Tag
       run: echo "Image Tag is ${{ env.IMAGE_TAG }}"
@@ -38,6 +33,4 @@ jobs:
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         repository: ${{ github.repository }}
         event-type: build-push
-        client-payload: '{"image_tag": "${{ steps.set_imagetag.outputs.image_tag }}"}'
-
-
+        client-payload: '{"image_tag": "${{ env.IMAGE_TAG }}"}'
