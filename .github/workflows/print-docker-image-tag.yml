@@ -11,7 +11,21 @@ jobs:
     name: Print Docker Image Tag
     runs-on: ubuntu-latest
     steps:
-      - name: Print Environment Variables
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      
+      - name: Download Image Tag Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: image-tag
+          path: .
+
+      - name: Read Image Tag from File
+        id: read_image_tag
+        run: echo "$(cat image_tag.txt)"
+        shell: bash
+
+      - name: Print Image Tag
         if: ${{ github.event.workflow_run.conclusion == 'success' }}
         run: |
-          printenv
+          echo "Docker image tag: ${{ steps.read_image_tag.stdout }}"
