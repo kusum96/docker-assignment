@@ -1,22 +1,15 @@
 name: Print Docker Image Tag
 
 on:
-  workflow_run:
-    workflows: ["Build and Push Docker Image"]
-    types:
-      - completed
+  repository_dispatch:
+    types: [tag-printed]
 
 jobs:
   print-tag:
     name: Print Docker Image Tag
     runs-on: ubuntu-latest
     steps:
-      - name: Download image_tag artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: image_tag
-          path: ./image_tag.txt
-
-
-      - name: Read Image Tag from File
-        run: cat image_tag.txt
+      - name: Extract Payload
+        run: echo "Docker image tag: ${{ needs.build-and-push.outputs.image_tag }}"
+      needs:
+        - build-and-push
