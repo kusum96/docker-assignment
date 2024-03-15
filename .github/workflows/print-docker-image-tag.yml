@@ -1,12 +1,12 @@
 name: Print Docker Image Tag
 
 on:
-  repository_dispatch:
-    types: build-push
   workflow_run:
     workflows: ["Build and Push Docker Image"]
     types:
       - completed
+  repository_dispatch:
+    types: build-push
 
 jobs:
   print-tag:
