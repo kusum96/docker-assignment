@@ -10,16 +10,14 @@ jobs:
   print-tag:
     name: Print Docker Image Tag
     runs-on: ubuntu-latest
-    env:
-      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
     steps:
       - name: Download image_tag artifact
         uses: actions/download-artifact@v2
         with:
           name: image_tag
-          workflow: "Build and Push Docker Image"
-          run-id: ${{ github.event.workflow_run.id }} # Use the workflow run ID of the "Build and Push Docker Image" workflow
           path: .  # Download the artifact to the current directory
 
       - name: Read Image Tag from File
         run: cat image_tag.txt
+
+      # Add any other steps as needed
