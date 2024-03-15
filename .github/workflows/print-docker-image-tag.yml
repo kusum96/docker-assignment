@@ -1,16 +1,13 @@
 name: Print Docker Image Tag
 
 on:
-  workflow_run:
-    workflows: ["Build and Push Docker Image"]
-    types:
-      - completed
+  repository_dispatch:
+    types: build-push
 
 jobs:
   print-tag:
     name: Print Docker Image Tag
     runs-on: ubuntu-latest
     steps:
-      - name: Print Image Tag
-        run: |
-          echo "Docker image tag: ${{ needs.build-and-push.outputs.image_tag }}"
+      - name: Extract Image Tag from Payload
+        run: echo "Docker image tag: ${{ github.event.client_payload.image_tag }}"
