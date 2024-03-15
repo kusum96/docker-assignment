@@ -11,6 +11,12 @@ jobs:
     name: Print Docker Image Tag
     runs-on: ubuntu-latest
     steps:
-      - name: Print Image Tag
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      
+      - name: Read Image Tag from Environment File
         run: |
-          echo "Docker image tag: ${{ github.event.workflow_run.conclusion }}"
+          echo "Docker image tag: $TAG" >> image_tag.txt
+
+      - name: Print Image Tag
+        run: cat image_tag.txt
