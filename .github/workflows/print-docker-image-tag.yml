@@ -11,6 +11,10 @@ jobs:
     name: Print Docker Image Tag
     runs-on: ubuntu-latest
     steps:
+      - name: Enable Step Debugging
+        run: |
+          echo "::set-env name=ACTIONS_RUNNER_DEBUG::true"
+      
       - name: Download image_tag artifact
         uses: actions/download-artifact@v2
         with:
