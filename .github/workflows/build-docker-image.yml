@@ -2,8 +2,6 @@ name: Build and Push Docker Image
 
 on:
   push:
-    branches:
-      - feature/docker-file
   workflow_dispatch:
 
 jobs:
@@ -25,3 +23,9 @@ jobs:
 
     - name: Push Docker Image
       run: docker push kusumchoudhary/docker-ass1:v3.0.0
+
+    - name: Upload image tag file
+      uses: actions/upload-artifact@v2
+      with:
+        name: image_tag
+        path: image_tag.txt
