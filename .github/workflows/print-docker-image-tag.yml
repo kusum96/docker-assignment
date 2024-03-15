@@ -10,22 +10,16 @@ jobs:
   print-tag:
     name: Print Docker Image Tag
     runs-on: ubuntu-latest
+    env:
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-      
-      - name: Download Image Tag Artifact
+      - name: Download image_tag artifact
         uses: actions/download-artifact@v2
         with:
-          name: image-tag
-          path: .
+          name: image_tag
+          workflow: "Build and Push Docker Image"
+          run-id: ${{ github.event.workflow_run.id }} # Use the workflow run ID of the "Build and Push Docker Image" workflow
+          path: .  # Download the artifact to the current directory
 
       - name: Read Image Tag from File
-        id: read_image_tag
-        run: echo "$(cat image_tag.txt)"
-        shell: bash
-
-      - name: Print Image Tag
-        if: ${{ github.event.workflow_run.conclusion == 'success' }}
-        run: |
-          echo "Docker image tag: ${{ steps.read_image_tag.stdout }}"
+        run: cat image_tag.txt
