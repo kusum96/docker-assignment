@@ -11,18 +11,7 @@ jobs:
     name: Print Docker Image Tag
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Download image tag file
-        uses: actions/download-artifact@v2
-        with:
-          name: image_tag
-          path: image_tag.txt
-      
-      - name: Read Image Tag from Environment File
-        run: |
-          echo "Docker image tag: $TAG" >> image_tag.txt
-          
-      - name: Print Image Tag
+      steps:
+      - name: Extract Image Tag from Payload
+        run: echo "Docker image tag: ${{ github.event.client_payload.image_tag }}"
         run: cat image_tag.txt
