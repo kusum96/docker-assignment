@@ -13,4 +13,4 @@ jobs:
     steps:
       - name: Print Image Tag
         run: |
-          echo "Docker image tag: ${{ github.event.workflow_run.conclusion }}"
+          echo "Docker image tag: ${{ github.event.workflow_run.outputs.image_tag }}"
