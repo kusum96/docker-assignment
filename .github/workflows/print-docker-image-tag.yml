@@ -5,15 +5,12 @@ on:
     workflows: ["Build and Push Docker Image"]
     types:
       - completed
-  repository_dispatch:
-    types: [tag-printed]
 
 jobs:
   print-tag:
     name: Print Docker Image Tag
     runs-on: ubuntu-latest
     steps:
-      - name: Extract Payload
-        run: echo "Docker image tag: ${{ needs.build-and-push.outputs.image_tag }}"
-      needs:
-        - build-and-push
+      - name: Print Image Tag
+        run: |
+          echo "Docker image tag: ${{ github.event.workflow_run.conclusion }}"
