@@ -2,8 +2,6 @@ name: Build and Push Docker Image
 
 on:
   push:
-    branches:
-      - feature/docker-file
   workflow_dispatch:
 
 jobs:
@@ -23,3 +21,7 @@ jobs:
 
     - name: Push Docker Image
       run: docker push kusumchoudhary/docker-ass1:v2.0.0
+
+    - name: Set Image Tag Output
+      id: set-tag
+      run: echo "::set-output name=tag::${{ steps.build-and-push.outputs.image_tag }}"
