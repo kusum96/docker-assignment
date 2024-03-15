@@ -14,4 +14,4 @@ jobs:
       - name: Print Image Tag
         if: ${{ github.event.workflow_run.conclusion == 'success' }}
         run: |
-          echo "Docker image tag: ${{ github.event.workflow_run.outputs.image_tag }}"
+          echo "Docker image tag: ${{ toJson(github.event.workflow_run.outputs.image_tag) }}"
