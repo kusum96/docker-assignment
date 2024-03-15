@@ -8,6 +8,9 @@ jobs:
     name: Build and Push
     runs-on: ubuntu-latest
 
+    outputs: 
+      image_tag: ${{ steps.set_imagetag.outputs.image_tag }}
+
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
@@ -21,3 +24,6 @@ jobs:
     - name: Push Docker Image
       run: docker push kusumchoudhary/docker-ass1:v3.0.0
 
+    - name: Set Image Tag
+      id: set_imagetag
+      run: echo "::set-output name=image_tag::v3.0.0"
