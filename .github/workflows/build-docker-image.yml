@@ -1,9 +1,6 @@
 name: Build and Push Docker Image
 
 on:
-  push:
-    branches:
-      - feature/docker-file
   workflow_dispatch:
 
 jobs:
@@ -15,28 +12,15 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
-    # Add debug step to list files in current directory
-    - name: List files in current directory
-      run: ls -la
-
     - name: Log in to Docker Hub
       run: echo "${{ secrets.DOCKERHUB_Saif_Token }}" | docker login --username "${{ secrets.DOCKERHUB_Saif_USERNAME }}" --password-stdin
 
     - name: Build Docker Image
-      run: |
-        TAG=v2.0.0
-        echo "TAG=$TAG" >> image_tag.txt
-        docker build . -t kusumchoudhary/docker-ass1:v2.0.0 -f DockerFile
+      run: docker build . -t kusumchoudhary/docker-ass1:v2.0.0 -f DockerFile
 
     - name: Push Docker Image
       run: docker push kusumchoudhary/docker-ass1:v2.0.0
 
-    # Upload the image_tag.txt file as an artifact
-    - name: Upload image tag artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: image_tag
-        path: image_tag.txt
-
-    - name: List files in current directory
-      run: ls -la
+    - name: Set Image Tag Output
+      id: set_image_tag
+      run: echo "::set-output name=image_tag::v2.0.0"
