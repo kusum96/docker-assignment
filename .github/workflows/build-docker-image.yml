@@ -19,14 +19,13 @@ jobs:
       run: echo "${{ secrets.DOCKERHUB_Saif_Token }}" | docker login --username "${{ secrets.DOCKERHUB_Saif_USERNAME }}" --password-stdin
 
     - name: Build Docker Image
-      id: build
-      run: |
-        docker build . -t kusumchoudhary/docker-ass1:v5.0.0 -f DockerFile
-        echo "v5.0.0" >> $GITHUB_ENV  # Store the image tag in an environment variable
-
+        docker build . -t kusumchoudhary/docker-ass1:v3.0.0 -f DockerFile
+        echo "v3.0.0" >> $GITHUB_ENV
+        
     - name: Push Docker Image
-      run: docker push kusumchoudhary/docker-ass1:v5.0.0
+      run: docker push kusumchoudhary/docker-ass1:v3.0.0
 
     - name: Set Image Tag Output
       if: always()
-      run: echo "image_tag=v5.0.0" >> $GITHUB_ENV
+      run: echo "image_tag=v3.0.0" >> $GITHUB_ENV
+
