@@ -10,11 +10,9 @@ jobs:
   print-tag:
     name: Print Docker Image Tag
     runs-on: ubuntu-latest
+    env:
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
     steps:
-      - name: Enable Step Debugging
-        run: |
-          echo "::set-env name=ACTIONS_RUNNER_DEBUG::true"
-      
       - name: Download image_tag artifact
         uses: actions/download-artifact@v2
         with:
@@ -23,3 +21,5 @@ jobs:
 
       - name: Read Image Tag from File
         run: cat image_tag.txt
+
+      # Add any other steps as needed
