@@ -1,9 +1,6 @@
 name: Build and Push Docker Image
 
 on:
-  push:
-    branches:
-      - feature/docker-file
   workflow_dispatch:
 
 jobs:
@@ -19,7 +16,16 @@ jobs:
       run: echo "${{ secrets.DOCKERHUB_Saif_Token }}" | docker login --username "${{ secrets.DOCKERHUB_Saif_USERNAME }}" --password-stdin
 
     - name: Build Docker Image
-      run: docker build . -t kusumchoudhary/docker-ass1:v2.0.0 -f DockerFile
-
+      run: |
+        TAG=v3.0.0
+        echo "TAG=$TAG" >> image_tag.txt
+        docker build . -t kusumchoudhary/docker-ass1:v3.0.0 -f DockerFile
+        
     - name: Push Docker Image
-      run: docker push kusumchoudhary/docker-ass1:v2.0.0
+      run: docker push kusumchoudhary/docker-ass1:v3.0.0
+
+    - name: Upload image tag file
+      uses: actions/upload-artifact@v2
+      with:
+        name: image_tag
+        path: image_tag.txt
