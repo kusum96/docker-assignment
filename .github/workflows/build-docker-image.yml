@@ -29,3 +29,7 @@ jobs:
       run: |
        echo "IMAGE_TAG=v3.0.0" >> $GITHUB_ENV
 
+    - name: Print Image Tag
+      run: echo "Image Tag is ${{ env.IMAGE_TAG }}"
+
+
