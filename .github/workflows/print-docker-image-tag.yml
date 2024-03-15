@@ -1,29 +1,29 @@
-name: Print Docker Image Tag
+name: Build and Push Docker Image
 
 on:
-  workflow_run:
-    workflows: ["Build and Push Docker Image"]
-    types:
-      - completed
+  push:
+    branches:
+      - feature/docker-file
+  workflow_dispatch:
 
 jobs:
-  print-tag:
-    name: Print Docker Image Tag
+  build-and-push:
+    name: Build and Push
     runs-on: ubuntu-latest
+
     steps:
-      - name: Download image_tag artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: image_tag
-          repository: ${{ github.repository }}
-          ref: ${{ github.ref }}
-          workflow: "Build and Push Docker Image"
-          path: .  # Download the artifact to the current directory
+    - name: Checkout Repository
+      uses: actions/checkout@v2
 
-      - name: List files in current directory
-        run: ls -la
+    - name: Log in to Docker Hub
+      run: echo "${{ secrets.DOCKERHUB_Saif_Token }}" | docker login --username "${{ secrets.DOCKERHUB_Saif_USERNAME }}" --password-stdin
 
-      - name: Read Image Tag from File
-        run: cat image_tag.txt
+    - name: Build Docker Image
+      run: docker build . -t kusumchoudhary/docker-ass1:v2.0.0 -f DockerFile
 
-      # Add any other steps as needed
+    - name: Push Docker Image
+      run: docker push kusumchoudhary/docker-ass1:v2.0.0
+
+    - name: Set Image Tag Output
+      id: set_image_tag
+      run: echo "::set-output name=image_tag::v2.0.0"
