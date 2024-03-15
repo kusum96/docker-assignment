@@ -1,6 +1,7 @@
 name: Build and Push Docker Image
 
 on:
+  push:
   workflow_dispatch:
 
 jobs:
@@ -11,9 +12,6 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
-
-    - name: List files in current directory
-      run: ls -la
 
     - name: Log in to Docker Hub
       run: echo "${{ secrets.DOCKERHUB_Saif_Token }}" | docker login --username "${{ secrets.DOCKERHUB_Saif_USERNAME }}" --password-stdin
@@ -27,11 +25,8 @@ jobs:
     - name: Push Docker Image
       run: docker push kusumchoudhary/docker-ass1:v2.0.0
 
-    - name: Upload image tag artifact
+    - name: Upload image tag file
       uses: actions/upload-artifact@v2
       with:
         name: image_tag
         path: image_tag.txt
-        
-    - name: List files in current directory
-      run: ls -la
