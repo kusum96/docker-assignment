@@ -19,7 +19,7 @@ jobs:
       run: echo "${{ secrets.DOCKERHUB_Saif_Token }}" | docker login --username "${{ secrets.DOCKERHUB_Saif_USERNAME }}" --password-stdin
 
     - name: Build Docker Image
-        docker build . -t kusumchoudhary/docker-ass1:v3.0.0 -f DockerFile
+      run: docker build . -t kusumchoudhary/docker-ass1:v3.0.0 -f DockerFile
         echo "v3.0.0" >> $GITHUB_ENV
         
     - name: Push Docker Image
