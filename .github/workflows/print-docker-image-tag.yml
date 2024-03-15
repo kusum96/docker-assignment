@@ -11,11 +11,12 @@ jobs:
     name: Print Docker Image Tag
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-      
-      - name: Read Image Tag from Environment File
-        run: |
-          echo "Docker image tag: $TAG" >> image_tag.txt
-      - name: Print Image Tag
+      - name: Download image_tag artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: image_tag
+          path: ./image_tag.txt
+
+
+      - name: Read Image Tag from File
         run: cat image_tag.txt
