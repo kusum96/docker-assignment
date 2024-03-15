@@ -13,4 +13,4 @@ jobs:
     steps:
       - name: Print Image Tag
         run: |
-          echo "Docker image tag: ${{ toJson(needs.build-and-push.outputs) }}"
+          echo "Docker image tag: ${{ needs.build-and-push.outputs.image_tag }}"
