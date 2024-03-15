@@ -12,4 +12,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Extract Image Tag
-        run: echo "Docker image tag:${{ github.event.workflow_run.outputs.image_tag }}"
+        run: echo "Docker image tag: ${{ github.event.workflow_run.outputs.image_tag }}"
