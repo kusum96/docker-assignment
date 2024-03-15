@@ -26,4 +26,6 @@ jobs:
 
     - name: Set Image Tag
       id: set_imagetag
-      run: echo "::set-output name=image_tag::v3.0.0"
+      run: |
+       echo "IMAGE_TAG=v3.0.0" >> $GITHUB_ENV
+
