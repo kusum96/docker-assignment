@@ -12,7 +12,6 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
-    # Add debug step to list files in current directory
     - name: List files in current directory
       run: ls -la
 
@@ -28,11 +27,11 @@ jobs:
     - name: Push Docker Image
       run: docker push kusumchoudhary/docker-ass1:v2.0.0
 
-    # Upload the image_tag.txt file as an artifact
     - name: Upload image tag artifact
       uses: actions/upload-artifact@v2
       with:
         name: image_tag
         path: image_tag.txt
+        
     - name: List files in current directory
       run: ls -la
